@@ -1,5 +1,5 @@
 PORT=/dev/ttyUSB0
-TARGET=DH11TempRead
+TARGET=miniPWM
 MCU=atmega328p
 CFLAGS=-g -Wall -mcall-prologues -mmcu=$(MCU) -Os
 LDFLAGS=-Wl,-gc-sections -Wl,-relax
