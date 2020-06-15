@@ -4,7 +4,7 @@ MCU=atmega328p
 CFLAGS=-g -Wall -mcall-prologues -mmcu=$(MCU) -Os
 LDFLAGS=-Wl,-gc-sections -Wl,-relax
 CC=avr-gcc
-OBJECT_FILES=$(TARGET).o
+OBJECT_FILES=$(TARGET).o functions.o
 
 all: $(TARGET).hex
 

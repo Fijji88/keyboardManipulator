@@ -1,37 +1,35 @@
-#ifndef F_CPU
-#define F_CPU 16000000UL //16MHz clock speed
-#endif
+// Keyboard manipulator code
 
-
+#include "macros.h"
 #include <avr/io.h>
 #include <util/delay.h>
 #include <avr/interrupt.h>
 
-double dutycycle = 0;
+#include "functions.h"
+
+
+
+static double dutycycle = 0;
+
 
 int main(void)
 {
-    DDRD = (1 << PORTD6); //Set pin 13/ PB1 as Output
+    while(HWconfig() != 1)
 
-    TCCR0A = (1 << COM0A1) | (1 << WGM00) | (1 << WGM01); //Waveform generator set to fast pwm or mode 3.
-
-    TIMSK0 = (1 << TOIE0); //Time mask
-
-    OCR0A = (dutycycle/100)*255;
+    updateDC(dutycycle);
 
     sei();
 
-    TCCR0B = (1 << CS00); //Prescalar
+    startTC(CS00);
 
     while(1)
     {
-        _delay_ms(100);
-
-        dutycycle += 10;
+        _delay_us(1); 
+        dutycycle += 1;
 
         if(dutycycle > 100)
         {
-            dutycycle =0;
+            dutycycle = 0;
         }
     }
 
