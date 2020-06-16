@@ -6,8 +6,8 @@
 #endif
 
 // Pins
-#define PWM_PIN_1              (1 << PORTD6); //PWM output pin 6
-
+#define PWM_PIN_1              (1 << PORTD6) //PWM output pin 6
+#define LED_PIN_1              (1 << PORTD4) //LED pin 4
 // Timers
 #define COMPARE_MODE           (1 << COM0A1) // COM0A1 clear OC0A on compare match.
 

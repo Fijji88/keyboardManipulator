@@ -30,6 +30,7 @@ int main(void)
         if(dutycycle > 100)
         {
             dutycycle = 0;
+            toggleLED();
         }
     }
 
