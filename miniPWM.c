@@ -10,7 +10,8 @@
 
 
 static double dutycycle = 0;
-
+static int toggle = 0;
+static int heartbeat = 0;
 
 int main(void)
 {
@@ -24,13 +25,31 @@ int main(void)
 
     while(1)
     {
-        _delay_us(1); 
-        dutycycle += 1;
-
-        if(dutycycle > 100)
+        _delay_us(10); 
+        if(heartbeat)
         {
-            dutycycle = 0;
+            dutycycle -= 1;
+
+            if(dutycycle < 1)
+            {
+                heartbeat = 0;
+            }
+
+        }
+        else
+        {
+            dutycycle += 1;
+
+            if(dutycycle > 99)
+            {
+                heartbeat = 1;
+            }
+        }
+
+        if(toggle == 1)
+        {
             toggleLED();
+            toggle = 0;
         }
     }
 
@@ -39,4 +58,9 @@ int main(void)
 ISR(TIMER0_OVF_vect)
 {
     OCR0A = (dutycycle/100)*255;
+}
+
+ISR(PCINT0_vect)
+{
+    toggle = 1;
 }
